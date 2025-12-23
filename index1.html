@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍰 CADÊ O TIRAMISU, CARLINHOS?! 🍰</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Comic Neue', cursive;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Partículas flutuantes de tiramisu */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 15s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Título principal */
+        .title {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            color: #ff6b6b;
+            text-shadow: 
+                3px 3px 0 #feca57,
+                6px 6px 0 #ff9ff3,
+                9px 9px 0 #54a0ff;
+            margin: 20px 0;
+            animation: shake 0.5s infinite, rainbow 3s infinite;
+            letter-spacing: 3px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) rotate(-1deg); }
+            25% { transform: translateX(-5px) rotate(1deg); }
+            50% { transform: translateX(5px) rotate(-1deg); }
+            75% { transform: translateX(-5px) rotate(1deg); }
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff6b6b; }
+            25% { color: #feca57; }
+            50% { color: #ff9ff3; }
+            75% { color: #54a0ff; }
+            100% { color: #ff6b6b; }
+        }
+
+        /* Subtítulo */
+        .subtitle {
+            font-size: 1.5rem;
+            color: #feca57;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* Container das fotos */
+        .photos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        /* Foto do Carlinhos */
+        .carlinhos-container {
+            position: relative;
+        }
+
+        .carlinhos-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid #ff6b6b;
+            box-shadow: 
+                0 0 30px rgba(255, 107, 107, 0.5),
+                0 0 60px rgba(255, 107, 107, 0.3);
+            animation: bounce 1s infinite, spin-slow 10s infinite linear;
+            transition: transform 0.3s;
+        }
+
+        .carlinhos-photo:hover {
+            animation: crazy-spin 0.5s infinite linear;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes crazy-spin {
+            0% { transform: rotate(0deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1.2); }
+        }
+
+        .wanted-badge {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff0000;
+            color: white;
+            padding: 5px 20px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            animation: blink 0.5s infinite;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .shame-text {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            color: #ff9ff3;
+            animation: wiggle 0.3s infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Tiramisu */
+        .tiramisu-container {
+            position: relative;
+        }
+
+        .tiramisu-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 8px solid #feca57;
+            box-shadow: 
+                0 0 30px rgba(254, 202, 87, 0.5),
+                0 0 60px rgba(254, 202, 87, 0.3);
+            animation: float-tiramisu 3s infinite ease-in-out, glow 2s infinite;
+        }
+
+        @keyframes float-tiramisu {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(254, 202, 87, 0.5), 0 0 60px rgba(254, 202, 87, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(254, 202, 87, 0.8), 0 0 100px rgba(254, 202, 87, 0.5); }
+        }
+
+        .dream-text {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            color: #54a0ff;
+            animation: dream 2s infinite;
+        }
+
+        @keyframes dream {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* VS */
+        .vs {
+            font-family: 'Bangers', cursive;
+            font-size: 3rem;
+            color: #ff9ff3;
+            animation: explode 0.8s infinite;
+        }
+
+        @keyframes explode {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        /* Contador de atraso */
+        .counter-section {
+            background: linear-gradient(145deg, rgba(255,0,0,0.2), rgba(139,0,0,0.4));
+            border: 5px solid #ff0000;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            animation: alarm 1s infinite;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes alarm {
+            0%, 100% { border-color: #ff0000; box-shadow: 0 0 50px rgba(255, 0, 0, 0.5); }
+            50% { border-color: #ff6b6b; box-shadow: 0 0 80px rgba(255, 0, 0, 0.8); }
+        }
+
+        .counter-title {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            color: #ff0000;
+            margin-bottom: 20px;
+            animation: shake 0.3s infinite;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .time-box {
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            border: 3px solid #feca57;
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 100px;
+            animation: pop 0.5s infinite alternate;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .time-value {
+            font-family: 'Bangers', cursive;
+            font-size: 3rem;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 0 #feca57;
+        }
+
+        .time-label {
+            font-size: 1rem;
+            color: #54a0ff;
+            text-transform: uppercase;
+        }
+
+        /* Mensagem de vergonha */
+        .shame-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 20px;
+            border: 3px dashed #ff6b6b;
+        }
+
+        .shame-message {
+            font-size: 1.8rem;
+            color: #feca57;
+            line-height: 1.8;
+            animation: typing 3s infinite;
+        }
+
+        .shame-message span {
+            display: inline-block;
+            animation: jump 0.5s infinite;
+        }
+
+        @keyframes jump {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Emojis animados */
+        .emoji-rain {
+            font-size: 2rem;
+            animation: rain 0.5s infinite alternate;
+        }
+
+        @keyframes rain {
+            0% { transform: translateY(0) rotate(-10deg); }
+            100% { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        /* Botão de vergonha */
+        .shame-button {
+            margin-top: 30px;
+            padding: 20px 40px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            color: white;
+            background: linear-gradient(145deg, #ff6b6b, #ee5a5a);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            animation: button-pulse 1s infinite;
+            transition: all 0.3s;
+        }
+
+        .shame-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        @keyframes button-pulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 10px 50px rgba(255, 107, 107, 0.8); }
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            color: #54a0ff;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        /* Sirene */
+        .siren {
+            position: fixed;
+            top: 20px;
+            font-size: 3rem;
+            animation: siren 0.5s infinite;
+        }
+
+        .siren-left { left: 20px; }
+        .siren-right { right: 20px; }
+
+        @keyframes siren {
+            0%, 100% { transform: rotate(-20deg); filter: hue-rotate(0deg); }
+            50% { transform: rotate(20deg); filter: hue-rotate(180deg); }
+        }
+
+        /* Fita de crime */
+        .crime-tape {
+            position: fixed;
+            width: 200%;
+            background: repeating-linear-gradient(
+                90deg,
+                #feca57,
+                #feca57 50px,
+                #1a1a1a 50px,
+                #1a1a1a 100px
+            );
+            color: #1a1a1a;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            padding: 10px 0;
+            text-align: center;
+            animation: tape-scroll 20s infinite linear;
+            z-index: 100;
+        }
+
+        .crime-tape.top {
+            top: 0;
+            transform: rotate(-2deg) translateX(-10%);
+        }
+
+        .crime-tape.bottom {
+            bottom: 0;
+            transform: rotate(2deg) translateX(-10%);
+        }
+
+        @keyframes tape-scroll {
+            0% { transform: rotate(-2deg) translateX(-10%); }
+            100% { transform: rotate(-2deg) translateX(-60%); }
+        }
+
+        /* Confetti explosion */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confetti-fall 3s infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .title { font-size: 2rem; }
+            .counter-title { font-size: 1.5rem; }
+            .time-value { font-size: 2rem; }
+            .time-box { min-width: 70px; padding: 10px; }
+            .carlinhos-photo, .tiramisu-photo { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fita de crime -->
+    <div class="crime-tape top">
+        ⚠️ DEVEDOR DE TIRAMISU ⚠️ NÃO CONFIE NESTE HOMEM ⚠️ PROCURADO ⚠️ DEVEDOR DE TIRAMISU ⚠️ NÃO CONFIE NESTE HOMEM ⚠️ PROCURADO ⚠️ DEVEDOR DE TIRAMISU ⚠️
+    </div>
+
+    <!-- Sirenes -->
+    <div class="siren siren-left">🚨</div>
+    <div class="siren siren-right">🚨</div>
+
+    <!-- Partículas flutuantes -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Título -->
+        <h1 class="title">🍰 CADÊ O TIRAMISU, CARLINHOS?! 🍰</h1>
+        <p class="subtitle">A saga do tiramisu que nunca chegou...</p>
+
+        <!-- Fotos -->
+        <div class="photos-container">
+            <div class="carlinhos-container">
+                <div class="wanted-badge">🚨 PROCURADO 🚨</div>
+                <img src="carlinhos-sabonete.jpeg" alt="Carlinhos Sabonete" class="carlinhos-photo" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=carlinhos&backgroundColor=ff6b6b'">
+                <p class="shame-text">😤 O CALOTEIRO 😤</p>
+            </div>
+
+            <div class="vs">⚔️ VS ⚔️</div>
+
+            <div class="tiramisu-container">
+                <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=400&fit=crop" alt="Tiramisu" class="tiramisu-photo">
+                <p class="dream-text">✨ O SONHO PROMETIDO ✨</p>
+            </div>
+        </div>
+
+        <!-- Contador -->
+        <div class="counter-section">
+            <h2 class="counter-title">⏰ TEMPO DE ATRASO DO TIRAMISU ⏰</h2>
+            <div class="counter">
+                <div class="time-box">
+                    <div class="time-value" id="days">00</div>
+                    <div class="time-label">Dias</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-value" id="hours">00</div>
+                    <div class="time-label">Horas</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-value" id="minutes">00</div>
+                    <div class="time-label">Minutos</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-value" id="seconds">00</div>
+                    <div class="time-label">Segundos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensagem de vergonha -->
+        <div class="shame-section">
+            <p class="shame-message">
+                <span class="emoji-rain">😭</span> 
+                Carlinhos prometeu um TIRAMISU e até hoje... <strong>NADA!</strong> 
+                <span class="emoji-rain">😭</span>
+                <br><br>
+                <span class="emoji-rain">🍰</span>
+                Quantas noites sem dormir pensando no tiramisu...
+                <span class="emoji-rain">🍰</span>
+                <br><br>
+                <span class="emoji-rain">💔</span>
+                A confiança foi quebrada. O coração foi partido.
+                <span class="emoji-rain">💔</span>
+            </p>
+            <button class="shame-button" onclick="cobrar()">
+                📢 COBRAR O CARLINHOS! 📢
+            </button>
+        </div>
+
+        <!-- Frases aleatórias -->
+        <div id="random-phrase" style="font-size: 1.5rem; color: #ff9ff3; margin: 30px 0; animation: pulse 2s infinite;"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>🍰 Site oficial de cobrança de Tiramisu 🍰</p>
+            <p>Última atualização: A cada segundo que o Carlinhos não entrega</p>
+            <p style="margin-top: 20px; font-size: 1.5rem;">
+                <span class="emoji-rain">🧁</span>
+                <span class="emoji-rain">🍮</span>
+                <span class="emoji-rain">🍰</span>
+                <span class="emoji-rain">🎂</span>
+                <span class="emoji-rain">🍩</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Fita de crime inferior -->
+    <div class="crime-tape bottom">
+        ⚠️ DEVEDOR DE TIRAMISU ⚠️ NÃO CONFIE NESTE HOMEM ⚠️ PROCURADO ⚠️ DEVEDOR DE TIRAMISU ⚠️ NÃO CONFIE NESTE HOMEM ⚠️ PROCURADO ⚠️ DEVEDOR DE TIRAMISU ⚠️
+    </div>
+
+    <script>
+        // Data prometida do tiramisu (ajuste conforme necessário)
+        const dataPrometida = new Date("2025-12-22T08:00:00Z").getTime();
+
+        // Atualizar contador
+        function atualizarContador() {
+            const agora = Date.now();
+            let diferenca = agora - dataPrometida;
+
+            // Se ainda não passou da data
+            if (diferenca < 0) {
+                diferenca = Math.abs(diferenca);
+            }
+
+            const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = String(dias).padStart(2, '0');
+            document.getElementById("hours").textContent = String(horas).padStart(2, '0');
+            document.getElementById("minutes").textContent = String(minutos).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(segundos).padStart(2, '0');
+        }
+
+        setInterval(atualizarContador, 1000);
+        atualizarContador();
+
+        // Partículas flutuantes
+        function criarParticulas() {
+            const container = document.getElementById('particles');
+            const emojis = ['🍰', '🧁', '☕', '🍫', '🍮', '✨', '💫', '😤', '😭', '💔'];
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(particle);
+            }
+        }
+        criarParticulas();
+
+        // Frases aleatórias
+        const frases = [
+            "🍰 'Semana que vem eu trago!' - Carlinhos, há 47 semanas",
+            "😤 Tiramisu: Prometido ✓ | Entregue ✗",
+            "🤡 Carlinhos e suas promessas vazias...",
+            "💸 Se promessa de tiramisu valesse dinheiro...",
+            "📅 Esperando desde: Era pra ser ontem!",
+            "🎭 Oscar de melhor ator: Carlinhos fingindo que vai trazer",
+            "🍫 Até o cacau virar chocolate ele não traz!",
+            "☕ Nem um café pra compensar ele trouxe!",
+            "🌙 Quantas luas já passaram sem tiramisu...",
+            "🎪 Circo? Não, é só o Carlinhos prometendo de novo!",
+            "📱 'Tô saindo de casa com o tiramisu' - Carlinhos (MENTIRA)",
+            "🚗 O tiramisu tá vindo... de carroça!",
+        ];
+
+        function mostrarFraseAleatoria() {
+            const elemento = document.getElementById('random-phrase');
+            const frase = frases[Math.floor(Math.random() * frases.length)];
+            elemento.textContent = frase;
+        }
+
+        setInterval(mostrarFraseAleatoria, 4000);
+        mostrarFraseAleatoria();
+
+        // Função de cobrança
+        function cobrar() {
+            const mensagens = [
+                "📢 CARLINHOS! CADÊ O TIRAMISU?!",
+                "🚨 ALERTA: DEVEDOR DE TIRAMISU DETECTADO!",
+                "😱 A VERGONHA É GRANDE, MAS O TIRAMISU NÃO VEM!",
+                "🍰 TIRAMISU OU AMIZADE ABALADA!",
+                "💀 RIP PROMESSA DE TIRAMISU",
+                "🎺 TUM TUM TUM! CARLINHOS, PAGUE SUA DÍVIDA!",
+            ];
+            
+            const mensagem = mensagens[Math.floor(Math.random() * mensagens.length)];
+            alert(mensagem);
+            
+            // Criar explosão de confetti
+            for (let i = 0; i < 50; i++) {
+                criarConfetti();
+            }
+        }
+
+        function criarConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 4000);
+        }
+
+        // Easter egg: Konami Code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'rainbow 0.5s infinite';
+                alert("🎉 CÓDIGO SECRETO! MAS O TIRAMISU CONTINUA SEM VIR! 🎉");
+            }
+        });
+
+        // Título piscando na aba
+        let tituloOriginal = document.title;
+        let tituloAlternativo = "⚠️ DEVEDOR DETECTADO ⚠️";
+        
+        setInterval(() => {
+            document.title = document.title === tituloOriginal ? tituloAlternativo : tituloOriginal;
+        }, 1500);
+
+        console.log(`
+        ╔═══════════════════════════════════════╗
+        ║   🍰 CARLINHOS, CADÊ O TIRAMISU? 🍰   ║
+        ║                                       ║
+        ║   Se você é o Carlinhos e está        ║
+        ║   lendo isso: TRAGA O TIRAMISU!       ║
+        ║                                       ║
+        ╚═══════════════════════════════════════╝
+        `);
+    </script>
+</body>
+</html>
