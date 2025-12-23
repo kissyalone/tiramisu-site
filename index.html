@@ -301,7 +301,10 @@
 
         <div style="margin-top: 40px;">
             <p style="margin-bottom: 10px; font-weight: bold;">🔊 Aumente o som para a trilha sonora oficial deste momento:</p>
-            <div id="player"></div>
+            <audio id="music-player" controls style="width: 100%; max-width: 500px;">
+                <source src="ayrton-senna-tema-da-vitoria.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
         </div>
 
         <footer>
@@ -315,31 +318,6 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
-        // Carregar API do YouTube
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '200',
-                width: '350',
-                videoId: 'PUCkEp_r27w', // Tema da Vitória clássico
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 1
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            // Player pronto, esperando clique no botão
-        }
 
         function iniciarCerimonia() {
             // 1. Sumir com o overlay
@@ -347,12 +325,10 @@
             overlay.style.opacity = '0';
             setTimeout(() => overlay.style.display = 'none', 1000);
 
-            // 2. Tocar Música (Tentativa de unmuted)
-            if(player && player.playVideo) {
-                player.playVideo();
-                // Tenta desmutar caso o navegador tenha mutado
-                player.unMute();
-                player.setVolume(100);
+            // 2. Tocar Música
+            const audioPlayer = document.getElementById('music-player');
+            if(audioPlayer) {
+                audioPlayer.play();
             }
 
             // 3. Chuva de Confetes Infinita
