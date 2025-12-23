@@ -175,8 +175,28 @@
             border: 10px solid #d35400; /* Bronze/Café */
             box-shadow: 
                 0 0 0 10px #fff,
-                0 20px 50px rgba(0,0,0,0.3);
-            animation: levitate 3s ease-in-out infinite;
+                0 20px 50px rgba(0,0,0,0.3),
+                0 0 40px rgba(255, 215, 0, 0.6);
+            animation: levitate 3s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+            opacity: 1;
+            transform: scale(1);
+            cursor: pointer;
+            position: relative;
+            pointer-events: auto;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 0 10px #fff, 0 20px 50px rgba(0,0,0,0.3), 0 0 40px rgba(255, 215, 0, 0.6); }
+            50% { box-shadow: 0 0 0 10px #fff, 0 20px 50px rgba(0,0,0,0.3), 0 0 70px rgba(255, 215, 0, 1); }
+        }
+
+        .tiramisu-trophy.clicked {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 0 10px #fff,
+                0 20px 50px rgba(0,0,0,0.3),
+                0 0 60px rgba(255, 0, 0, 0.8),
+                inset 0 0 30px rgba(255, 215, 0, 0.4);
         }
 
         @keyframes levitate {
@@ -300,10 +320,8 @@
         </div>
 
         <div style="margin-top: 40px;">
-            <p style="margin-bottom: 10px; font-weight: bold;">🔊 Aumente o som para a trilha sonora oficial deste momento:</p>
-            <audio id="music-player" controls style="width: 100%; max-width: 500px;">
-                <source src="ayrton-senna-tema-da-vitoria.mp3" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
+            <audio id="receba-loop" loop style="display: none;">
+                <source src="receba-gangster-paradise.mp3" type="audio/mpeg">
             </audio>
         </div>
 
@@ -319,16 +337,28 @@
 
     <script>
 
+        function revelarTiramisu() {
+            const tiramisu = document.querySelector('.tiramisu-trophy');
+            tiramisu.classList.add('revealed');
+            tiramisu.style.pointerEvents = 'auto';
+        }
+
+        function revelarTiramisu() {
+            const tiramisu = document.querySelector('.tiramisu-trophy');
+            tiramisu.classList.add('revealed');
+            tiramisu.style.pointerEvents = 'auto';
+        }
+
         function iniciarCerimonia() {
             // 1. Sumir com o overlay
             const overlay = document.getElementById('start-overlay');
             overlay.style.opacity = '0';
             setTimeout(() => overlay.style.display = 'none', 1000);
 
-            // 2. Tocar Música
-            const audioPlayer = document.getElementById('music-player');
-            if(audioPlayer) {
-                audioPlayer.play();
+            // 2. Tocar Música "Receba Gangster Paradise" em loop
+            const recebLoop = document.getElementById('receba-loop');
+            if(recebLoop) {
+                recebLoop.play();
             }
 
             // 3. Chuva de Confetes Infinita
@@ -371,7 +401,12 @@
 
         // Easter Egg: Se clicar na foto do Carlinhos
         document.querySelector('.carlinhos-photo').addEventListener('click', () => {
-            alert("👑 O REI DO DOCE ITALIANO! 👑");
+            // Tocar som "vixe-maria"
+            const vixeSound = new Audio('vixe-maria.mp3');
+            vixeSound.play().catch(err => {
+                console.log('Não foi possível reproduzir o som:', err);
+            });
+            
             confetti({
                 particleCount: 100,
                 spread: 70,
